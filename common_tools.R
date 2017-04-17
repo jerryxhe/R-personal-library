@@ -1,11 +1,17 @@
 # Global test of model assumptions
 library(gvlma)
+# All Subsets Regression
+library(leaps)
+library(DAAG)
+
+cross_validate <- function(dat, fit, nfold=3) {
+     cv.lm(df=dat, fit, m=nfold)
+}
 
 check_model <- function(fit) {
     gvmodel <- gvlma(fit) 
     summary(gvmodel)
 }
-
 
 concordance <- function(model) {
     # Get all actual observations and their fitted values into a frame
@@ -14,8 +20,7 @@ concordance <- function(model) {
       # Subset only ones
       ones<-fitted[fitted[,1]==1,]
       # Subset only zeros
-      zeros<-fitted[fitted[,1]==0,]
-      
+      zeros<-fitted[fitted[,1]==0,]      
       # Initialise all the values
       pairs_tested<-0
       conc<-0
@@ -42,5 +47,3 @@ concordance <- function(model) {
                   "Tied"=ties_perc,
                   "Pairs"=pairs_tested))
 }
-
-
