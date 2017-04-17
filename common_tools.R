@@ -1,3 +1,12 @@
+# Global test of model assumptions
+library(gvlma)
+
+check_model <- function(fit) {
+    gvmodel <- gvlma(fit) 
+    summary(gvmodel)
+}
+
+
 concordance <- function(model) {
     # Get all actual observations and their fitted values into a frame
       fitted<-data.frame(cbind(model$y,model$fitted.values))
