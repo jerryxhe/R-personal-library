@@ -4,6 +4,8 @@ library(gvlma)
 library(leaps)
 library(DAAG)
 
+rows = function(x) lapply(seq_len(nrow(x)), function(i) lapply(x,"[",i)) # iterate over each row of a dataframe
+                          
 cross_validate <- function(dat, fit, nfold=3) {
      cv.lm(df=dat, fit, m=nfold)
 }
